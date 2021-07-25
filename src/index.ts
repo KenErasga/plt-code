@@ -1,1 +1,1 @@
-export { sayGreeting } from './currentStockLevel';
+export { currentStockLevels } from './currentStockLevel';
