@@ -15,7 +15,6 @@ Notes:
 - Transactions may exist for SKUs which are not present in `stock.json`. It should be assumed that the starting quantity for these is 0.
 - Functionality can be split into many files to help keep the project clear and organised 
 
-
 ## Running tests
 
 ``` 
