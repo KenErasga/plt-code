@@ -7,39 +7,34 @@ const getStock = (sku: string): Stock => {
   // get stock quantity in stock.json
   const skuStock = stocks.find((stock: Stock) => stock.sku === sku);
 
-  if (!skuStock) {
-    throw new Error("SKU not found in stocks")
+  const stock = skuStock || {
+    sku,
+    stock: 0
   }
 
-  return skuStock;
+  return stock;
 }
 
 const getTransactions = (sku: string): Array<Transaction> => {
   // get all object containing the given sku in transactions
-  const allTransactionsSku = transactions.filter((transaction: Transaction) => transaction.sku === sku);
-
-  if (allTransactionsSku.length === 0) {
-    throw new Error("SKU not found in transactions")
-  }
-
-  return allTransactionsSku;
+  return transactions.filter((transaction: Transaction) => transaction.sku === sku);
 }
 
 const getTotalStock = (skuStock: Stock, transactions: Array<Transaction>) => {
-  let totalSkuStock = skuStock.stock;
+  let totalStock = skuStock.stock;
 
   transactions.forEach((transaction: Transaction) => {
     // if refund add quantity else if order subtract quantity
     if (transaction.type === 'order') {
-      totalSkuStock = totalSkuStock - transaction.qty
+      totalStock = totalStock - transaction.qty
     }
 
     if (transaction.type === 'refund') {
-      totalSkuStock = totalSkuStock + transaction.qty
+      totalStock = totalStock + transaction.qty
     }
   });
 
-  return totalSkuStock
+  return totalStock;
 }
 
 export { getStock, getTransactions, getTotalStock }
